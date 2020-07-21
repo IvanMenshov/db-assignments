@@ -136,8 +136,8 @@ async function task_1_6(db) {
             Categories.CategoryName as "CategoryName",
             Suppliers.CompanyName as "SupplierCompanyName"
         FROM Products 
-        JOIN Categories ON products.CategoryID = Categories.CategoryID
-        JOIN Suppliers ON products.SupplierID = Suppliers.SupplierID
+        JOIN Categories ON Products.CategoryID = Categories.CategoryID
+        JOIN Suppliers ON Products.SupplierID = Suppliers.SupplierID
         ORDER BY ProductName,
             Categories.CategoryID;
     `);
@@ -503,7 +503,7 @@ async function task_1_22(db) {
         INNER JOIN Products p ON p.ProductID = d.ProductID
         WHERE d.UnitPrice = (SELECT MAX(d.UnitPrice)
             FROM Customers c
-            INNER JOIN Orders o ON customers.CustomerID = o.CustomerID
+            INNER JOIN Orders o ON Customers.CustomerID = o.CustomerID
 	        INNER JOIN OrderDetails d ON o.OrderID = d.OrderID
             WHERE Customers.CompanyName = c.CompanyName)
         ORDER BY PricePerItem desc,
