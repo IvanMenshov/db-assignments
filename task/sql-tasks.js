@@ -246,7 +246,7 @@ async function task_1_11(db) {
 	        ProductName,
             UnitPrice
         FROM Products
-        WHERE UnitPrice >= 5 and UnitPrice <16
+        WHERE UnitPrice BETWEEN 5 and 15
         ORDER BY UnitPrice asc,
 	        ProductName;
     `);
@@ -289,11 +289,11 @@ async function task_1_12(db) {
 async function task_1_13(db) {
     let result = await db.query(`
         SELECT
-	        COUNT(ProductName) as 'TotalOfCurrentProducts',
-	        (SELECT COUNT(ProductName)
+            (SELECT COUNT(*)
+            FROM Products) as 'TotalOfCurrentProducts',
+	        (SELECT COUNT(*)
             FROM Products
-            WHERE Discontinued = 1) as 'TotalOfDiscontinuedProducts'
-        FROM Products;
+            WHERE Discontinued = 1) as 'TotalOfDiscontinuedProducts';
     `);
 
     return result[0];
@@ -505,7 +505,7 @@ async function task_1_22(db) {
             FROM Customers c
             INNER JOIN Orders o ON Customers.CustomerID = o.CustomerID
 	        INNER JOIN OrderDetails d ON o.OrderID = d.OrderID
-            WHERE Customers.CompanyName = c.CompanyName)
+            WHERE Customers.CustomerID = c.CustomerID)
         ORDER BY PricePerItem desc,
 	        CompanyName,
             p.ProductName;
