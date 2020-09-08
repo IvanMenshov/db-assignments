@@ -282,18 +282,21 @@ async function task_3_1(db) {
                 "from" : "clientCriteria",
                 "let" : {"value1": "$criteria_value"},
                 "pipeline": [{
-                    "$match": {
-                        "versions.initiativeId": ObjectId("58af4da0b310d92314627290")
-                    }
-                },
-                {
-                    "$match": {
-                        "$expr": {
-                            "$eq": ["$value", "$$value1"]
+                        "$match": {
+                            "versions.initiativeId": ObjectId("58af4da0b310d92314627290")
                         }
-                    }
-                }],
-                "as" : "criteria"
+                    },
+                    {
+                        "$match": {
+                            "$expr": {
+                                "$eq": ["$value", "$$value1"]
+                            }
+                        }
+                    },
+                    {
+                        "$limit": 1
+                    }],
+                    "as" : "criteria"
             }
         },
         // {
