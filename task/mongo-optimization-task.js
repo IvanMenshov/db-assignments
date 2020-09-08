@@ -283,14 +283,14 @@ async function task_3_1(db) {
                 "let" : {"value1": "$criteria_value"},
                 "pipeline": [{
                         "$match": {
-                            "versions.initiativeId": ObjectId("58af4da0b310d92314627290")
-                        }
-                    },
-                    {
-                        "$match": {
-                            "$expr": {
-                                "$eq": ["$value", "$$value1"]
-                            }
+                            "$and": [{
+                                "versions.initiativeId": ObjectId("58af4da0b310d92314627290")
+                            },
+                            {
+                                "$expr": {
+                                    "$eq": ["$value", "$$value1"]
+                                }
+                            }]
                         }
                     },
                     {
